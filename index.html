@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vibeo</title>
+<!-- Concept site for a fictional loudspeaker brand. All products, prices, people and numbers are sample content. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,0..100;1,9..144,500..700,0..100&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF5E6;
+    --cream-2: #FFEBD1;
+    --tang: #FF5A2C;
+    --tang-d: #E2431A;
+    --sun: #FFC83D;
+    --plum: #2B1B2E;
+    --ink: #1C1410;
+    --muted: #7A6657;
+    --line: #F0DDC3;
+    --white: #FFFFFF;
+    --sage: #9DBF9E;
+    --head: "Fraunces", Georgia, "Times New Roman", serif;
+    --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --r: 28px;
+    --shadow: 0 24px 50px rgba(120, 60, 10, .14);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font: 400 1.06rem/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 70; background: var(--cream); }
+  h1, h2, h3 { font-family: var(--head); font-weight: 600; margin: 0; letter-spacing: -0.025em; line-height: 1.05; text-wrap: balance; font-variation-settings: "SOFT" 100; }
+  h1 em, h2 em { font-style: italic; color: var(--tang); font-weight: 500; }
+  p { margin: 0; } a { color: inherit; }
+  svg { max-width: 100%; }
+  :focus-visible { outline: 3px solid var(--tang); outline-offset: 3px; }
+  h1:focus { outline: none; }
+  .wrap { max-width: 1180px; margin-inline: auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); padding-block: 6rem; }
+  .eyebrow { font: 700 .78rem var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--tang); }
+  h2.big { font-size: clamp(2.2rem, 5vw, 3.8rem); margin-top: .9rem; }
+  .sub { margin-top: 1rem; color: var(--muted); font-size: 1.15rem; max-width: 50ch; }
+  .head { margin-bottom: 3rem; } .head.c { text-align: center; } .head.c .sub { margin-inline: auto; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font: 700 .98rem var(--body); text-decoration: none; padding: 1rem 1.8rem; background: var(--tang); color: var(--white); border: 0; border-radius: 999px; cursor: pointer; transition: transform .15s, box-shadow .2s, background .2s; white-space: nowrap; }
+  .btn:hover { background: var(--tang-d); transform: translateY(-2px); box-shadow: 0 12px 26px rgba(226, 67, 26, .35); }
+  .btn.dark { background: var(--ink); } .btn.dark:hover { background: #000; box-shadow: 0 12px 26px rgba(0, 0, 0, .3); }
+  .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); } .btn.ghost:hover { background: var(--ink); color: var(--white); }
+  .btn.sm { padding: .65rem 1.3rem; font-size: .92rem; }
+  .link { color: var(--tang-d); font-weight: 700; text-decoration: none; } .link::after { content: " \2192"; } .link:hover { text-decoration: underline; }
+
+  header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 60; background: rgba(255, 245, 230, .92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav-in { max-width: 1180px; margin-inline: auto; padding: 0 max(20px, env(safe-area-inset-right, 0px)) 0 max(20px, env(safe-area-inset-left, 0px)); height: 72px; display: flex; align-items: center; gap: 1.6rem; }
+  .brand { display: flex; align-items: center; gap: .55rem; font: 700 1.6rem var(--head); letter-spacing: -0.03em; text-decoration: none; font-variation-settings: "SOFT" 100; }
+  .brand svg { width: 34px; height: 34px; }
+  .links { display: flex; gap: 1.7rem; margin-left: 1.5rem; }
+  .links a { font: 600 .95rem var(--body); text-decoration: none; padding: .4rem 0; border-bottom: 2px solid transparent; } .links a:hover { border-color: var(--tang); }
+  .nav-r { margin-left: auto; display: flex; gap: .7rem; align-items: center; }
+  .bag { position: relative; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--white); cursor: pointer; display: grid; place-items: center; box-shadow: 0 2px 0 var(--line); }
+  .bag svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .bag i { position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 99px; background: var(--tang); color: var(--white); font: 700 .72rem/20px var(--body); text-align: center; font-style: normal; }
+  .burger { display: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--white); cursor: pointer; }
+  .burger span, .burger span::before, .burger span::after { display: block; width: 18px; height: 2px; background: var(--ink); position: relative; margin: auto; } .burger span::before, .burger span::after { content: ""; position: absolute; left: 0; } .burger span::before { top: -6px; } .burger span::after { top: 6px; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; width: 640px; height: 640px; border-radius: 50%; background: var(--sun); opacity: .35; right: -220px; top: -220px; }
+  .hero::after { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%; background: var(--tang); opacity: .16; left: -140px; bottom: 120px; }
+  .hero .wrap { position: relative; text-align: center; padding-block: 5rem 3rem; }
+  .badge { display: inline-flex; gap: .5rem; align-items: center; background: var(--white); border-radius: 999px; padding: .4rem 1rem .4rem .45rem; font: 600 .88rem var(--body); box-shadow: 0 2px 0 var(--line); }
+  .badge b { background: var(--tang); color: var(--white); border-radius: 99px; padding: .15rem .6rem; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(3.2rem, 9vw, 7rem); max-width: 12ch; margin: 1.4rem auto 0; }
+  .hero .lead { margin: 1.5rem auto 0; max-width: 46ch; font-size: 1.25rem; color: #5A4637; }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.2rem; }
+  .panel { position: relative; z-index: 2; max-width: 980px; margin: 3.5rem auto 0; padding-inline: max(20px, env(safe-area-inset-left, 0px)); }
+  .dash { background: var(--white); border-radius: 34px; box-shadow: var(--shadow); padding: clamp(1.2rem, 3vw, 2rem); text-align: left; }
+  .dash-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+  .dash-top h3 { font-size: 1.7rem; } .dash-top span { color: var(--muted); font-size: .9rem; font-weight: 500; }
+  .dgrid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.2rem; }
+  .np { background: var(--plum); color: var(--white); border-radius: 24px; padding: 1.6rem; display: grid; gap: 1.2rem; min-width: 0; }
+  .np .meta { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; } .np small { color: #C9B3C9; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: .72rem; }
+  .np h4 { margin: .3rem 0 0; font: 600 1.5rem var(--head); } .np p { color: #C9B3C9; font-size: .95rem; }
+  .play { width: 56px; height: 56px; border-radius: 50%; border: 0; background: var(--tang); color: var(--white); display: grid; place-items: center; cursor: pointer; flex: none; transition: transform .15s, background .2s; }
+  .play:hover { background: var(--tang-d); transform: scale(1.06); } .play svg { width: 26px; height: 26px; fill: currentColor; }
+  .eq i { animation-play-state: paused; } .eq.on i { animation-play-state: running; }
+  .live { background: var(--tang); border-radius: 99px; padding: .25rem .7rem; font: 700 .72rem var(--body); letter-spacing: .08em; text-transform: uppercase; }
+  .eq { display: flex; align-items: flex-end; gap: 5px; height: 84px; }
+  .eq i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, var(--sun), var(--tang)); height: calc(var(--h) * var(--lvl, .6)); transform-origin: bottom; animation: bounce 1.1s ease-in-out infinite alternate; animation-delay: var(--d); }
+  @keyframes bounce { from { transform: scaleY(.45); } to { transform: scaleY(1); } }
+  .vol { display: grid; grid-template-columns: auto 1fr auto; gap: .9rem; align-items: center; font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--tang); height: 28px; }
+  .prog { height: 6px; border-radius: 99px; background: #4A3350; overflow: hidden; } .prog i { display: block; height: 100%; width: 42%; background: var(--sun); border-radius: 99px; }
+  .side { display: grid; gap: 1rem; }
+  .tile { background: var(--cream); border-radius: 22px; padding: 1.1rem 1.3rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .tile b { font: 600 1.8rem var(--head); display: block; line-height: 1; } .tile span { color: var(--muted); font-size: .88rem; }
+  .sw { width: 54px; height: 32px; border-radius: 99px; border: 0; background: #D9C9B4; position: relative; cursor: pointer; flex: none; transition: background .2s; } .sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--white); transition: transform .2s; box-shadow: 0 2px 4px rgba(0, 0, 0, .2); } .sw[aria-checked=true] { background: var(--tang); } .sw[aria-checked=true]::after { transform: translateX(22px); }
+
+  .trust { text-align: center; padding-block: 4rem 1rem !important; } .trust small { display: block; color: var(--muted); font-weight: 600; margin-bottom: 1.2rem; }
+  .trust div { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem 3rem; font: 600 1.5rem var(--head); color: #C3A98B; font-style: italic; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .card { background: var(--white); border-radius: var(--r); padding: 2rem; display: grid; gap: .8rem; align-content: start; box-shadow: 0 2px 0 var(--line); transition: transform .2s, box-shadow .2s; min-width: 0; }
+  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+  .ico { width: 58px; height: 58px; border-radius: 18px; background: var(--cream-2); display: grid; place-items: center; font-size: 1.7rem; }
+  .card h3 { font-size: 1.5rem; } .card p { color: var(--muted); }
+
+  .dark-sec { background: var(--plum); color: var(--white); } .dark-sec .sub { color: #CDB8CD; } .dark-sec .eyebrow { color: var(--sun); } .dark-sec h2 em { color: var(--sun); }
+  .chips { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .chip { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .15); border-radius: 99px; padding: .8rem 1.4rem; font-weight: 600; }
+
+  .tl { display: grid; gap: 0; max-width: 760px; margin-inline: auto; position: relative; } .tl::before { content: ""; position: absolute; left: 86px; top: 12px; bottom: 12px; width: 3px; background: var(--line); border-radius: 3px; }
+  .tl .row { display: grid; grid-template-columns: 70px 36px 1fr; gap: 1rem; align-items: start; padding: 1rem 0; } .tl time { font: 700 1rem var(--body); color: var(--tang-d); padding-top: .55rem; text-align: right; }
+  .tl .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--tang); border: 5px solid var(--cream); margin: .6rem 0 0 7px; position: relative; z-index: 1; }
+  .tl .bubble { background: var(--white); border-radius: 20px; padding: 1rem 1.3rem; box-shadow: 0 2px 0 var(--line); } .tl .bubble b { display: block; font: 600 1.25rem var(--head); } .tl .bubble span { color: var(--muted); font-size: .96rem; }
+
+  .week { background: var(--white); border-radius: 34px; padding: clamp(1.4rem, 4vw, 2.6rem); box-shadow: var(--shadow); display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: center; }
+  .week .nums { display: grid; gap: 1.4rem; } .week .nums b { font: 600 3rem/1 var(--head); display: block; } .week .nums span { color: var(--muted); }
+  .bars { display: flex; align-items: flex-end; gap: .8rem; height: 220px; } .bars div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: .5rem; height: 100%; font: 600 .82rem var(--body); color: var(--muted); } .bars i { width: 100%; border-radius: 12px 12px 4px 4px; background: var(--cream-2); } .bars div.hi i { background: var(--tang); }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; counter-reset: s; } .step { counter-increment: s; } .step::before { content: counter(s); width: 56px; height: 56px; border-radius: 50%; background: var(--sun); display: grid; place-items: center; font: 600 1.6rem var(--head); margin-bottom: 1.2rem; } .step h3 { font-size: 1.6rem; margin-bottom: .6rem; } .step p { color: var(--muted); }
+
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } .quote { background: var(--white); border-radius: var(--r); padding: 2rem; display: grid; gap: 1rem; align-content: space-between; } .stars { color: var(--sun); letter-spacing: .15em; font-size: 1.1rem; } .quote blockquote { margin: 0; font: 500 1.3rem/1.35 var(--head); letter-spacing: -0.01em; } .quote cite { font-style: normal; color: var(--muted); font-size: .92rem; font-weight: 500; }
+
+  .specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } .spec b { display: block; font: 600 clamp(2.6rem, 5vw, 4rem)/1 var(--head); color: var(--sun); } .spec span { display: block; margin-top: .5rem; color: #CDB8CD; max-width: 20ch; }
+
+  .prods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+  .prod { background: var(--white); border-radius: var(--r); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; box-shadow: 0 2px 0 var(--line); transition: transform .2s, box-shadow .2s; min-width: 0; } .prod:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .prod .stage { padding: 1.4rem 1rem .6rem; display: grid; place-items: center; } .prod .stage svg { width: 78%; height: auto; }
+  .prod .body { padding: 1.2rem 1.5rem 1.6rem; display: grid; gap: .4rem; } .prod h3 { font-size: 1.5rem; } .prod p { color: var(--muted); font-size: .95rem; } .prod .price { font: 600 1.7rem var(--head); margin-top: .5rem; } .prod .price small { font: 500 .85rem var(--body); color: var(--muted); }
+
+  .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } .post { background: var(--white); border-radius: var(--r); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; } .post:hover { transform: translateY(-5px); box-shadow: var(--shadow); } .post .art { height: 170px; display: grid; place-items: center; font-size: 3.4rem; } .post .t { padding: 1.4rem 1.6rem 1.7rem; display: grid; gap: .6rem; } .post h3 { font-size: 1.45rem; } .post small { color: var(--muted); font-weight: 600; }
+  .team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; } .team > div { background: var(--white); border-radius: var(--r); padding: 1.8rem 1.2rem; } .av { width: 88px; height: 88px; border-radius: 50%; margin: 0 auto 1rem; display: grid; place-items: center; font: 600 2rem var(--head); color: var(--white); } .team b { font: 600 1.3rem var(--head); display: block; } .team span { color: var(--muted); font-size: .9rem; }
+
+  .faq { max-width: 820px; margin-inline: auto; } .faq details { border-bottom: 1px solid var(--line); } .faq summary { cursor: pointer; list-style: none; padding: 1.4rem 0; font: 600 1.3rem var(--head); display: flex; justify-content: space-between; gap: 1rem; } .faq summary::-webkit-details-marker { display: none; } .faq summary::after { content: "+"; font: 400 1.8rem/1 var(--body); color: var(--tang); } .faq details[open] summary::after { content: "\2212"; } .faq p { padding: 0 2rem 1.4rem 0; color: var(--muted); }
+
+  .contact .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 4rem; }
+  form.card, .done { background: var(--white); border-radius: 32px; padding: clamp(1.4rem, 4vw, 2.4rem); display: grid; gap: 1.2rem; box-shadow: var(--shadow); } form.card:hover { transform: none; box-shadow: var(--shadow); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  label { display: block; font: 700 .76rem var(--body); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .45rem; }
+  input.f, select.f, textarea.f { width: 100%; font: 400 1rem var(--body); color: var(--ink); background: var(--cream); border: 2px solid transparent; border-radius: 16px; padding: .9rem 1rem; } textarea.f { min-height: 120px; resize: vertical; } .f:focus { outline: none; border-color: var(--tang); background: var(--white); }
+  .hp { position: absolute; left: -9999px; } .err { color: #C0301F; font-weight: 700; } .done { text-align: center; padding: 3rem 2rem; } .done h3 { font-size: 2rem; margin-bottom: .6rem; } .done p { color: var(--muted); }
+
+  .closing { background: var(--tang); color: var(--white); text-align: center; position: relative; overflow: hidden; } .closing .wrap { padding-block: 6rem; } .closing h2 { font-size: clamp(2.8rem, 8vw, 6rem); max-width: 12ch; margin-inline: auto; } .closing h2 em { color: var(--sun); } .closing p { margin: 1.2rem auto 2rem; max-width: 40ch; font-size: 1.2rem; opacity: .95; } .closing .btn { background: var(--white); color: var(--ink); } .closing .btn:hover { background: var(--ink); color: var(--white); }
+  footer { background: var(--ink); color: #D9C7B4; } footer .wrap { padding-block: 3.5rem 2.2rem; } .fgrid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 2.5rem; } footer .brand { color: var(--white); } footer h4 { margin: 0 0 1rem; font: 700 .76rem var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--sun); } footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; font-size: .95rem; } footer a { text-decoration: none; } footer a:hover { color: var(--white); text-decoration: underline; } .fine { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #3A2C22; font-size: .85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+  /* Inner pages */
+  .crumbs { font: 600 .85rem var(--body); color: var(--muted); margin-bottom: 1.6rem; } .crumbs a { color: var(--tang-d); text-decoration: none; }
+  .pdp { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; align-items: center; }
+  .pdp .stage { border-radius: 40px; background: var(--cream-2); display: grid; place-items: center; padding: 3rem 2rem; position: relative; overflow: hidden; } .pdp .stage::before { content: ""; position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--sun); opacity: .45; } .pdp .stage svg { position: relative; width: 72%; height: auto; }
+  .pdp h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); } .pdp .pr { font: 600 2.2rem var(--head); margin: 1rem 0; } .pdp .lead { color: var(--muted); font-size: 1.15rem; max-width: 44ch; }
+  .swatches { display: flex; gap: .8rem; margin: 1.6rem 0; align-items: center; } .swatches span { font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; margin-right: .4rem; } .swatches button { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 2px #E8D5BB; cursor: pointer; } .swatches button[aria-pressed=true] { box-shadow: 0 0 0 3px var(--ink); }
+  .pspec { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border-radius: 20px; overflow: hidden; margin: 1.8rem 0; } .pspec div { background: var(--white); padding: 1rem .6rem; text-align: center; } .pspec b { display: block; font: 600 1.4rem var(--head); } .pspec span { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .ticks { margin: 0 0 1.8rem; padding: 0; list-style: none; display: grid; gap: .6rem; font-weight: 500; } .ticks li::before { content: "\2713"; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--sun); margin-right: .7rem; font-size: .8rem; font-weight: 700; }
+  .pg-hero { background: var(--cream-2); } .pg-hero .wrap { padding-block: 3.5rem 4rem; max-width: 880px; } .pg-hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); margin-top: .8rem; }
+  .prose { max-width: 720px; margin: 0 auto; padding: 3rem max(20px, env(safe-area-inset-left, 0px)) 4rem; } .prose p { font: 400 1.2rem/1.75 var(--head); margin-bottom: 1.5rem; } .prose h2 { font-size: 1.9rem; margin: 2.4rem 0 1rem; }
+  /* Photos: optional files in an images folder. If a file is missing, the illustration stays. */
+  .stage img { display: none; }
+  .stage.hasimg { padding: 0 !important; } .stage.hasimg svg { display: none; } .stage.hasimg::before { display: none; }
+  .stage.hasimg img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; position: relative; }
+  .pdp:has(.hasimg) .swatches { display: none; }
+  .post .art { position: relative; overflow: hidden; } .post .art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; } .post .art.hasimg img { display: block; }
+  .toast { position: fixed; left: 50%; bottom: max(24px, env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 30px); opacity: 0; background: var(--ink); color: var(--white); padding: .9rem 1.5rem; border-radius: 999px; font-weight: 600; z-index: 80; transition: .3s; pointer-events: none; } .toast.on { opacity: 1; transform: translate(-50%, 0); }
+  section[id] { scroll-margin-top: 76px; }
+  [data-reveal] { transition: opacity .6s ease, transform .6s ease; } [data-reveal].pre { opacity: .2; transform: translateY(18px); } [data-reveal].pre.in { opacity: 1; transform: none; }
+
+  @media (max-width: 960px) {
+    .wrap { padding-block: 4rem; } .burger { display: block; }
+    .links { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--cream); flex-direction: column; gap: 0; margin: 0; padding: .5rem max(20px, env(safe-area-inset-left, 0px)) 1rem; border-bottom: 1px solid var(--line); } header.nav.open .links { display: flex; } .links a { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+    .nav-in { gap: .6rem; } .nav-r .btn { display: none; }
+    .dgrid, .week, .contact .wrap, .pdp { grid-template-columns: 1fr; gap: 1.6rem; }
+    .cards, .steps, .quotes, .posts { grid-template-columns: 1fr; } .prods, .team, .specs { grid-template-columns: 1fr 1fr; }
+    .fgrid { grid-template-columns: 1fr 1fr; } .fgrid > :first-child { grid-column: 1 / -1; } .two { grid-template-columns: 1fr; }
+    .tl::before { left: 76px; } .tl .row { grid-template-columns: 60px 34px 1fr; gap: .6rem; }
+    .pspec { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .eq i { animation: none; } [data-reveal], .btn, .card, .prod, .post { transition: none; } [data-reveal].pre { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="logo" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#FF5A2C"/><circle cx="20" cy="20" r="11" fill="#FFC83D"/><circle cx="20" cy="20" r="5" fill="#2B1B2E"/></symbol>
+</defs></svg>
+
+<header class="nav" id="nav"><div class="nav-in">
+  <a class="brand" href="#" aria-label="Vibeo, home"><svg aria-hidden="true"><use href="#logo"/></svg>Vibeo</a>
+  <nav class="links" aria-label="Main"><a href="#features">Features</a><a href="#how">How it works</a><a href="#shop">Speakers</a><a href="#faq">Help</a></nav>
+  <div class="nav-r"><button class="bag" id="bag" aria-label="Bag"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 016 0"/></svg><i id="bagN">0</i></button><a class="btn sm" href="#shop">Shop speakers</a><button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span></button></div>
+</div></header>
+
+<main id="top">
+<div id="home">
+  <section class="hero"><div class="wrap">
+    <span class="badge"><b>New</b> The new Vibeo Boom is here</span>
+    <h1>Sound that <em>fills the room.</em></h1>
+    <p class="lead">Big, warm, properly loud speakers for people who feel music. Beautiful on the shelf. Unstoppable at the party.</p>
+    <div class="ctas"><a class="btn" href="#shop">Shop speakers &rarr;</a><a class="btn ghost" href="#how">See how it works</a></div>
+  </div>
+  <div class="panel"><div class="dash">
+    <div class="dash-top"><h3>Good evening <span style="font-family:var(--body)">&#127926;</span></h3><span>Living room &middot; Vibeo Boom</span></div>
+    <div class="dgrid">
+      <div class="np">
+        <div class="meta"><div><small>Now playing</small><h4>Golden Hour Mix</h4><p id="npSub">Press play for a demo loop</p></div><button class="play" id="play" type="button" aria-label="Play Golden Hour Mix" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIco" d="M8 5v14l11-7z"/></svg></button></div>
+        <div class="eq" id="eq" aria-hidden="true"></div>
+        <div class="prog" aria-hidden="true"><i></i></div>
+        <div class="vol"><span aria-hidden="true">&#128265;</span><input type="range" id="vol" min="0" max="100" value="62" aria-label="Volume"><b id="volN">62</b></div>
+      </div>
+      <div class="side">
+        <div class="tile"><div><b id="db">75 dB</b><span>Current loudness</span></div><span style="font-size:1.8rem">&#128266;</span></div>
+        <div class="tile"><div><b>14 h</b><span>Battery left</span></div><span style="font-size:1.8rem">&#128267;</span></div>
+        <div class="tile"><div><b>Party mode</b><span>Link all speakers</span></div><button class="sw" role="switch" aria-checked="false" aria-label="Party mode" data-sw></button></div>
+        <div class="tile"><div><b>Night mode</b><span>Softer bass after 10</span></div><button class="sw" role="switch" aria-checked="true" aria-label="Night mode" data-sw></button></div>
+      </div>
+    </div>
+  </div></div></section>
+
+  <div class="wrap trust" data-reveal><small>Heard in 40,000+ homes, cafes and rooftops</small><div><span>Sunday Club</span><span>Porch &amp; Co</span><span>Loft 9</span><span>Mellow</span><span>Noon Radio</span></div></div>
+
+  <section id="features"><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">Features</span><h2 class="big">Big sound. <em>No fuss.</em></h2><p class="sub">Everything you need to fill a room. Nothing you do not.</p></div>
+    <div class="cards" id="featCards"></div>
+  </div></section>
+
+  <section class="dark-sec"><div class="wrap">
+    <div class="head" data-reveal><span class="eyebrow">Works with everything</span><h2 class="big">Plays with <em>whatever you own.</em></h2><p class="sub">Phones, laptops, TVs and turntables. Connect in seconds and keep your music exactly where it is.</p></div>
+    <div class="chips" data-reveal><span class="chip">Bluetooth 5.3</span><span class="chip">Wi-Fi streaming</span><span class="chip">AirPlay</span><span class="chip">Chromecast</span><span class="chip">Spotify Connect</span><span class="chip">Aux in</span><span class="chip">Vinyl ready</span><span class="chip">TV optical</span></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">A day with Vibeo</span><h2 class="big">It sounds right <em>all day long.</em></h2></div>
+    <div class="tl" id="tl"></div>
+  </div></section>
+
+  <section style="background:var(--cream-2)"><div class="wrap">
+    <div class="head" data-reveal><span class="eyebrow">This week</span><h2 class="big">Your week, <em>in sound.</em></h2></div>
+    <div class="week" data-reveal>
+      <div class="nums"><div><b>24 h</b><span>of music played</span></div><div><b>86 dB</b><span>loudest night (Saturday)</span></div><div><b>4</b><span>new favorite albums</span></div></div>
+      <div class="bars" id="bars" role="img" aria-label="Hours listened each day this week"></div>
+    </div>
+  </div></section>
+
+  <section id="how"><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">How it works</span><h2 class="big">Up and playing in <em>three steps.</em></h2></div>
+    <div class="steps">
+      <div class="step" data-reveal><h3>Plug in or charge</h3><p>Pop it on a shelf or take it outside. Vibeo is ready in under a minute.</p></div>
+      <div class="step" data-reveal><h3>Connect your phone</h3><p>Open the Vibeo app and tap once. It finds your speaker and tunes itself to the room.</p></div>
+      <div class="step" data-reveal><h3>Turn it up</h3><p>Play anything. Add a second speaker for stereo or link a few for the whole house.</p></div>
+    </div>
+  </div></section>
+
+  <section style="background:var(--cream-2)"><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">Loved by listeners</span><h2 class="big">Do not take <em>our word for it.</em></h2><p class="sub">Sample reviews for a concept project.</p></div>
+    <div class="quotes" id="quotes"></div>
+  </div></section>
+
+  <section class="dark-sec"><div class="wrap">
+    <div class="head" data-reveal><span class="eyebrow">Built to be loud</span><h2 class="big">Loud, <em>never harsh.</em></h2><p class="sub">Every Vibeo is tuned by ear in a real living room. Big bass, clear voices and no rattle at full volume.</p></div>
+    <div class="specs" data-reveal><div class="spec"><b>120 W</b><span>of peak power in our biggest speaker</span></div><div class="spec"><b>30 h</b><span>of battery on a single charge</span></div><div class="spec"><b>IP67</b><span>water and dust protection</span></div><div class="spec"><b>5 yrs</b><span>warranty on every speaker</span></div></div>
+  </div></section>
+
+  <section id="shop"><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">Speakers and pricing</span><h2 class="big">Simple, honest <em>pricing.</em></h2><p class="sub">Four speakers. No hidden fees. Free delivery and 30 days to try it at home.</p></div>
+    <div class="prods" id="prods"></div>
+  </div></section>
+
+  <section style="background:var(--cream-2)"><div class="wrap">
+    <div class="head" data-reveal><span class="eyebrow">Journal</span><h2 class="big">Tips for <em>better sound.</em></h2></div>
+    <div class="posts" id="posts"></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">Team</span><h2 class="big">The people behind <em>Vibeo.</em></h2></div>
+    <div class="team" id="team" data-reveal></div>
+  </div></section>
+
+  <section id="faq" style="background:var(--cream-2)"><div class="wrap">
+    <div class="head c" data-reveal><span class="eyebrow">Help</span><h2 class="big">Frequently asked <em>questions</em></h2></div>
+    <div class="faq" id="faqList" data-reveal></div>
+  </div></section>
+
+  <section id="contact" class="contact"><div class="wrap">
+    <div data-reveal><span class="eyebrow">Contact</span><h2 class="big">Still have questions? <em>Ask away.</em></h2><p class="sub">Tell us what you are listening for. A real person replies within one working day.</p><p style="margin-top:1.6rem;font-weight:700">hello@vibeo.example</p></div>
+    <div data-reveal>
+      <form class="card" id="form" novalidate>
+        <div class="two"><div><label for="n">Your name</label><input class="f" id="n" name="name" autocomplete="name" required></div><div><label for="e">Email</label><input class="f" id="e" name="email" type="email" autocomplete="email" required></div></div>
+        <div><label for="t">I am asking about</label><select class="f" id="t" name="topic"><option>A speaker</option><option>An order</option><option>Setup help</option><option>Something else</option></select></div>
+        <div><label for="m">Message</label><textarea class="f" id="m" name="message"></textarea></div>
+        <div class="hp" aria-hidden="true"><label>Leave empty <input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+        <p class="err" id="err" role="alert" hidden>Please add your name and a valid email.</p>
+        <div><button class="btn" id="send" type="submit">Send message</button></div>
+      </form>
+      <div class="done" id="done" hidden tabindex="-1"><h3>Thank you, <span id="who"></span>!</h3><p>We will reply to <b id="addr"></b> within one working day.</p></div>
+    </div>
+  </div></section>
+
+  <section class="closing"><div class="wrap"><h2>Go on. <em>Turn it up.</em></h2><p>Try any Vibeo at home for 30 days. Love it or send it back.</p><a class="btn" href="#shop">Shop speakers</a></div></section>
+</div>
+<div id="page" hidden></div>
+</main>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><a class="brand" href="#"><svg aria-hidden="true"><use href="#logo"/></svg>Vibeo</a><p style="margin-top:1rem;max-width:30ch;font-size:.95rem">Big, warm, properly loud speakers for people who feel music.</p></div>
+    <div><h4>Speakers</h4><ul id="fp"></ul></div>
+    <div><h4>Learn</h4><ul><li><a href="#features">Features</a></li><li><a href="#how">How it works</a></li><li><a href="#faq">Help</a></li></ul></div>
+    <div><h4>Say hi</h4><ul><li><a href="#contact">Contact us</a></li><li><a href="#shop">Shop</a></li></ul></div>
+  </div>
+  <div class="fine"><span>Vibeo is a fictional company. A fictional project by Aliza Munir.</span><a href="#top" onclick="window.scrollTo(0,0);return false">&uarr; Back to top</a></div>
+</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  (function () {
+    // Paste your form service URL here (for example https://formspree.io/f/abcdxyz). Until then the form only shows the thank you message.
+    var FORM_ENDPOINT = "";
+    var $ = function (s) { return document.querySelector(s); };
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- Data ----------
+    var COLORS = [['Sunset', '#FF5A2C'], ['Sunny', '#FFC83D'], ['Midnight', '#2B1B2E'], ['Sage', '#9DBF9E']];
+    var P = {
+      pocket: { n: 'Vibeo Pocket', price: 99, tag: 'Small. Shockingly loud.', kind: 'pocket', w: '20 W', bat: '16 h', wt: '0.6 kg', ip: 'IP67', lead: 'Clip it to a bag, drop it in the sand, play it in the shower. Pocket is the little speaker that surprises everyone.', feat: ['Clips to a bag or bike', 'Floats on water', 'Pairs with a second Pocket for stereo', 'USB-C fast charge'], c: 0 },
+      boom: { n: 'Vibeo Boom', price: 249, tag: 'The 360 degree party starter.', kind: 'boom', w: '60 W', bat: '24 h', wt: '2.4 kg', ip: 'IP67', lead: 'Sound in every direction, with deep bass you can feel. Boom is built for balconies, backyards and big Sundays.', feat: ['360 degree sound', 'Party mode links up to 10 speakers', 'Built-in carry strap', 'Light show you can switch off'], c: 1 },
+      tower: { n: 'Vibeo Tower', price: 399, tag: 'A room-filling stereo on one stand.', kind: 'tower', w: '90 W', bat: 'Plug in', wt: '7.8 kg', ip: 'Indoor', lead: 'Tall, warm and beautiful on the floor. Tower brings movie night and vinyl evenings to life.', feat: ['Wi-Fi and Bluetooth', 'TV optical and aux in', 'Wood grain top and fabric grille', 'Room tuning in the app'], c: 2 },
+      stage: { n: 'Vibeo Stage', price: 549, tag: 'Our loudest. For real parties.', kind: 'stage', w: '120 W', bat: '30 h', wt: '11 kg', ip: 'IP54', lead: 'Two big woofers, a punchy tweeter and wheels for easy moves. Stage is made to carry a whole crowd.', feat: ['Two 8 inch woofers', 'Wheels and a pull handle', 'Microphone and guitar input', 'Up to 30 hours of play'], c: 0 }
+    };
+    var PK = Object.keys(P);
+    // SELLING: paste a payment link for each speaker (from Shopify, a payment gateway or any checkout link).
+    // When a link is set, the product page shows a real "Buy now" button. Empty means the demo "Add to bag" button.
+    var PAY = { pocket: '', boom: '', tower: '', stage: '' };
+    function photo(name, alt) { return '<img src="images/' + name + '.jpg" alt="' + alt + '" onload="this.parentNode.classList.add(\'hasimg\')" onerror="this.remove()">'; }
+    var BLOG = {
+      place: { t: 'Where to put your speaker for the best bass', tag: 'Setup', min: 4, e: '🏠', bg: '#FFC83D', body: ['Bass gets louder when it has a wall to push against. If your speaker sounds thin, move it closer to a wall and try again.', ['h', 'Start at ear height'], 'Highs travel in a straight line. Put the speaker at ear level when you sit and the voices will sound clearer.', ['h', 'Keep it off the floor'], 'Floors make bass boomy and muddy. A small stand or shelf tightens the sound right away.', 'Walk around the room while a song plays. Wherever it sounds best is where your speaker belongs.'] },
+      party: { t: 'How to build a playlist that keeps the party going', tag: 'Playlists', min: 5, e: '🎉', bg: '#FF5A2C', body: ['The best party playlists tell a little story. They start easy, build up and let people breathe in between.', ['h', 'Open with songs everyone knows'], 'In the first hour people are still arriving. Familiar songs keep the mood warm and the volume low enough to chat.', ['h', 'Save the loud ones for later'], 'Put your biggest singalongs after the first hour, when the room is full.', 'End with something slow. People remember how the night finished.'] },
+      care: { t: 'Five ways to make your speaker last for years', tag: 'Care', min: 3, e: '🔧', bg: '#9DBF9E', body: ['A good speaker can last ten years with a little care. Here are the habits that matter most.', ['h', 'Charge it before it dies'], 'Batteries last longer if you top them up at 20 percent instead of waiting for zero.', ['h', 'Rinse after the beach'], 'Salt and sand are tough. A quick rinse with fresh water and a dry cloth keeps the grille happy.', 'Store it somewhere cool, not in a hot car, and it will thank you.'] }
+    };
+    var BK = Object.keys(BLOG);
+    var FEATS = [['🔊', 'Big, clean sound', 'Powerful drivers and smart tuning give you deep bass and clear voices at any volume.'], ['🔋', 'All day battery', 'Up to 30 hours of play. Charge once and forget about it all weekend.'], ['💧', 'Built for outside', 'Splash, sand and dust are no problem. Take it to the beach or the rooftop.'], ['🔗', 'Link them up', 'Connect up to ten speakers and fill the whole house or the whole garden.'], ['🌙', 'Night mode', 'Softer bass and a lower volume cap after dark, so neighbors stay friendly.'], ['📱', 'One simple app', 'Tune the sound, set timers and update your speaker from your phone.']];
+    var DAY = [['7:00', 'Morning mix', 'Soft acoustic songs while the kettle boils.'], ['12:00', 'Podcast hour', 'Clear voices for lunch and a little learning.'], ['18:00', 'Cooking playlist', 'Upbeat tunes that make chopping onions fun.'], ['21:00', 'Party mode', 'Link the speakers and let the night go loud.'], ['23:00', 'Night mode', 'Bass softens and the volume drops, just enough.']];
+    var DAYS = [['Mon', 2], ['Tue', 3], ['Wed', 2], ['Thu', 4], ['Fri', 5], ['Sat', 7], ['Sun', 4]];
+    var QUOTES = [['It is the first speaker that made my flat sound like a club. And it still looks nice on the shelf.', 'Hana, Boom owner'], ['We took the Pocket camping. It survived a lake, a hill and four kids. Still loud.', 'Marcus, Pocket owner'], ['I put on a record and my partner came in from the next room just to listen.', 'Priya, Tower owner']];
+    var TEAM = [['Ava Lin', 'Founder', '#FF5A2C'], ['Jonas Berg', 'Head of sound', '#2B1B2E'], ['Noor Haddad', 'Product design', '#E0A800'], ['Leo Park', 'Customer joy', '#7FA680']];
+    var FAQ = [['How loud is loud?', 'Our biggest speaker reaches 110 dB at one meter. That is party loud, and you can always cap the volume in the app.'], ['Can I try one at home?', 'Yes. Every Vibeo comes with a 30 day home trial and free returns.'], ['Do they work with my phone?', 'They work with any phone, tablet or laptop that has Bluetooth. Wi-Fi models also work with AirPlay and Chromecast.'], ['Are they really waterproof?', 'Pocket and Boom are rated IP67, so they handle rain, splashes and a quick dip. Tower is for indoor use.'], ['How long is the warranty?', 'Five years on every speaker, including the battery for the first two.'], ['Can I link two speakers?', 'Yes. Pair two for stereo or link up to ten for party mode.']];
+
+    // ---------- Speaker illustration ----------
+    var sid = 0;
+    function spk(kind, color) {
+      var dark = '#1C1410', ring = 'rgba(28,20,16,.9)', s = '<svg viewBox="0 0 300 340" role="img" aria-label="Illustration of a Vibeo speaker">';
+      var body = function (x, y, w, h, r) { return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '" fill="' + color + '"/><rect x="' + (x + 8) + '" y="' + (y + 8) + '" width="' + (w - 16) + '" height="' + (h - 16) + '" rx="' + (r - 6) + '" fill="rgba(255,255,255,.14)"/>'; };
+      var cone = function (cx, cy, r) { return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + dark + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (r * .72) + '" fill="#3A2C22"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (r * .38) + '" fill="' + dark + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (r * .14) + '" fill="' + color + '"/>'; };
+      s += '<ellipse cx="150" cy="322" rx="' + (kind === 'stage' ? 120 : 90) + '" ry="10" fill="rgba(28,20,16,.15)"/>';
+      if (kind === 'pocket') { s += '<path d="M120 60a30 30 0 0160 0" fill="none" stroke="' + dark + '" stroke-width="8" stroke-linecap="round"/>' + body(70, 70, 160, 220, 44) + cone(150, 150, 46) + cone(150, 238, 26) + '<rect x="130" y="276" width="40" height="6" rx="3" fill="rgba(28,20,16,.5)"/>'; }
+      else if (kind === 'boom') { s += '<path d="M90 76q60-70 120 0" fill="none" stroke="' + dark + '" stroke-width="9" stroke-linecap="round"/>' + body(60, 70, 180, 240, 70) + cone(150, 160, 62) + cone(150, 262, 22) + '<circle cx="150" cy="104" r="6" fill="' + dark + '"/>'; }
+      else if (kind === 'tower') { s += body(95, 20, 110, 290, 26) + '<rect x="95" y="20" width="110" height="26" rx="12" fill="#C9985F"/>' + cone(150, 100, 34) + cone(150, 190, 40) + '<rect x="110" y="250" width="80" height="8" rx="4" fill="rgba(28,20,16,.45)"/><rect x="108" y="300" width="14" height="22" rx="4" fill="' + dark + '"/><rect x="178" y="300" width="14" height="22" rx="4" fill="' + dark + '"/>'; }
+      else { s += body(30, 60, 240, 250, 36) + cone(95, 190, 62) + cone(205, 190, 62) + cone(150, 112, 22) + '<rect x="120" y="40" width="60" height="22" rx="11" fill="' + dark + '"/><circle cx="60" cy="318" r="10" fill="' + dark + '"/><circle cx="240" cy="318" r="10" fill="' + dark + '"/>'; }
+      return s + '</svg>';
+    }
+
+    // ---------- Home content ----------
+    $('#featCards').innerHTML = FEATS.map(function (f, i) { return '<div class="card" data-reveal style="transition-delay:' + (i % 3) * .06 + 's"><span class="ico">' + f[0] + '</span><h3>' + f[1] + '</h3><p>' + f[2] + '</p></div>'; }).join('');
+    $('#tl').innerHTML = DAY.map(function (d) { return '<div class="row" data-reveal><time>' + d[0] + '</time><span class="dot"></span><div class="bubble"><b>' + d[1] + '</b><span>' + d[2] + '</span></div></div>'; }).join('');
+    $('#bars').innerHTML = DAYS.map(function (d) { return '<div' + (d[0] === 'Sat' ? ' class="hi"' : '') + '><i style="height:' + (d[1] / 7 * 100) + '%"></i>' + d[0] + '</div>'; }).join('');
+    $('#quotes').innerHTML = QUOTES.map(function (q) { return '<div class="quote" data-reveal><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;' + q[0] + '&rdquo;</blockquote><cite>' + q[1] + '</cite></div>'; }).join('');
+    function prodCard(k) { var p = P[k]; return '<a class="prod" href="#p-' + k + '" data-reveal><div class="stage" style="background:' + COLORS[p.c][1] + '33">' + spk(p.kind, COLORS[p.c][1]) + photo(k, p.n) + '</div><div class="body"><h3>' + p.n + '</h3><p>' + p.tag + '</p><div class="price">$' + p.price + ' <small>free delivery</small></div></div></a>'; }
+    $('#prods').innerHTML = PK.map(prodCard).join('');
+    $('#posts').innerHTML = BK.map(function (k) { var b = BLOG[k]; return '<a class="post" href="#b-' + k + '" data-reveal><div class="art" style="background:' + b.bg + '55">' + b.e + photo(k, b.t) + '</div><div class="t"><small>' + b.tag + ' &middot; ' + b.min + ' min read</small><h3>' + b.t + '</h3><span class="link">Read</span></div></a>'; }).join('');
+    $('#team').innerHTML = TEAM.map(function (t) { return '<div><div class="av" style="background:' + t[2] + '">' + t[0].charAt(0) + '</div><b>' + t[0] + '</b><span>' + t[1] + '</span></div>'; }).join('');
+    $('#faqList').innerHTML = FAQ.map(function (f) { return '<details><summary>' + f[0] + '</summary><p>' + f[1] + '</p></details>'; }).join('');
+    $('#fp').innerHTML = PK.map(function (k) { return '<li><a href="#p-' + k + '">' + P[k].n + '</a></li>'; }).join('');
+
+    // Hero player: plays audio/golden-hour.mp3 if you add one, otherwise a chill loop generated in the browser.
+    var playing = false, audioEl = null, ctx = null, master = null, sched = null, nextBarT = 0, nextBarI = 0, t0 = 0, useSynth = false;
+    var BEAT = 60 / 92, BAR = BEAT * 4, LOOP = BAR * 4;
+    var CHORDS = [[57, 60, 64, 67], [53, 57, 60, 64], [60, 64, 67, 71], [55, 59, 62, 64]], ROOTS = [45, 41, 48, 43];
+    function hz(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+    function vol01() { return Math.pow(+$('#vol').value / 100, 2) * 3; }
+    function tone(type, f, t, dur, peak, att, filt) {
+      var o = ctx.createOscillator(), g = ctx.createGain(), n = filt ? ctx.createBiquadFilter() : null;
+      o.type = type; o.frequency.value = f; g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + att); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      if (n) { n.type = 'lowpass'; n.frequency.value = filt; o.connect(n); n.connect(g); } else o.connect(g);
+      g.connect(master); o.start(t); o.stop(t + dur + .05);
+    }
+    function kick(t) { var o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.setValueAtTime(130, t); o.frequency.exponentialRampToValueAtTime(42, t + .14); g.gain.setValueAtTime(.35, t); g.gain.exponentialRampToValueAtTime(.0001, t + .22); o.connect(g); g.connect(master); o.start(t); o.stop(t + .25); }
+    function hat(t) { var len = Math.floor(ctx.sampleRate * .05), b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0); for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len); var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = b; f.type = 'highpass'; f.frequency.value = 7000; g.gain.value = .12; s.connect(f); f.connect(g); g.connect(master); s.start(t); }
+    function playBar(t, i) {
+      var ch = CHORDS[i % 4];
+      ch.forEach(function (m) { tone('triangle', hz(m), t, BAR + .5, .045, .5, 1400); });
+      tone('sine', hz(ROOTS[i % 4]), t, BEAT * 1.6, .3, .02); tone('sine', hz(ROOTS[i % 4]), t + BEAT * 2, BEAT * 1.4, .24, .02);
+      var pat = [0, 1, 2, 3, 2, 1, 3, 2];
+      for (var s = 0; s < 8; s++) tone('sine', hz(ch[pat[s]] + 12), t + s * BEAT / 2, .5, .11, .01);
+      for (var b = 0; b < 4; b++) { kick(t + b * BEAT); hat(t + b * BEAT + BEAT / 2); }
+    }
+    function schedule() { while (nextBarT < ctx.currentTime + .8) { playBar(nextBarT, nextBarI); nextBarT += BAR; nextBarI++; } }
+    function startSynth() {
+      if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); master = ctx.createGain(); master.gain.value = vol01(); var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 6; master.connect(comp); comp.connect(ctx.destination); }
+      if (ctx.state !== 'running') ctx.resume();
+      if (!sched) { t0 = ctx.currentTime + .1; nextBarT = t0; nextBarI = 0; sched = setInterval(schedule, 200); schedule(); }
+    }
+    function progress() { if (!playing) return; var p = 0; if (useSynth && ctx) p = ((ctx.currentTime - t0) % LOOP) / LOOP; else if (audioEl && audioEl.duration) p = audioEl.currentTime / audioEl.duration; document.querySelector('.prog i').style.width = Math.max(2, p * 100) + '%'; requestAnimationFrame(progress); }
+    function setUI(on) { playing = on; $('#eq').classList.toggle('on', on); var b = $('#play'); b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', (on ? 'Pause' : 'Play') + ' Golden Hour Mix'); $('#playIco').setAttribute('d', on ? 'M7 5h4v14H7zM13 5h4v14h-4z' : 'M8 5v14l11-7z'); $('#npSub').textContent = on ? (demo ? 'Playing a demo loop' : 'Playing now') : 'Press play for a demo loop'; if (on) progress(); }
+    // Phones often keep Web Audio silent (iPhone silent switch). So the loop is rendered once into a WAV file and played with a normal audio element, which phones always allow.
+    var hasFile = false, loopUrl = '', demo = false;
+    try { fetch('audio/golden-hour.mp3', { method: 'HEAD' }).then(function (r) { hasFile = r.ok; }).catch(function () {}); } catch (e) {}
+    try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+    function toWav(f, sr) {
+      var n = f.length, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf), i;
+      function s(o, x) { for (var k = 0; k < x.length; k++) v.setUint8(o + k, x.charCodeAt(k)); }
+      s(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); s(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, n * 2, true);
+      for (i = 0; i < n; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, f[i])) * 32767, true);
+      return new Blob([buf], { type: 'audio/wav' });
+    }
+    function renderLoop() {
+      var OC = window.OfflineAudioContext || window.webkitOfflineAudioContext; if (!OC) return;
+      var sr = 22050, tail = Math.ceil(sr * 2), off = new OC(1, Math.ceil(sr * LOOP) + tail, sr), saveC = ctx, saveM = master;
+      ctx = off; master = off.createGain(); master.gain.value = 1; master.connect(off.destination);
+      for (var i = 0; i < 4; i++) playBar(i * BAR, i);
+      ctx = saveC; master = saveM;
+      function done(buf) {
+        var d = buf.getChannelData(0), n = Math.floor(sr * LOOP), out = new Float32Array(n), k, mx = 0.0001;
+        for (k = 0; k < n; k++) out[k] = d[k];
+        for (k = 0; k < tail && k < n; k++) out[k] += d[n + k] || 0;
+        for (k = 0; k < n; k++) mx = Math.max(mx, Math.abs(out[k]));
+        for (k = 0; k < n; k++) out[k] = out[k] / mx * 0.92;
+        loopUrl = URL.createObjectURL(toWav(out, sr));
+      }
+      var p = off.startRendering(); if (p && p.then) p.then(done); else off.oncomplete = function (e) { done(e.renderedBuffer); };
+    }
+    setTimeout(function () { try { renderLoop(); } catch (e) {} }, 300);
+    function playEl(src, isDemo) {
+      if (!audioEl) { audioEl = new Audio(); audioEl.loop = true; }
+      if (audioEl.getAttribute('data-src') !== src) { audioEl.src = src; audioEl.setAttribute('data-src', src); }
+      audioEl.volume = +$('#vol').value / 100; useSynth = false; demo = isDemo;
+      return audioEl.play();
+    }
+    function synthFallback() { useSynth = true; demo = true; try { startSynth(); setUI(true); } catch (e) {} }
+    $('#play').addEventListener('click', function () {
+      if (playing) { if (useSynth && ctx) ctx.suspend(); else if (audioEl) audioEl.pause(); setUI(false); return; }
+      var pr;
+      if (hasFile) pr = playEl('audio/golden-hour.mp3', false); else if (loopUrl) pr = playEl(loopUrl, true);
+      if (pr && pr.then) pr.then(function () { setUI(true); }).catch(synthFallback); else synthFallback();
+    });
+    // Hero player visuals
+    var eq = $('#eq'), hs = [55, 80, 45, 95, 70, 60, 100, 50, 85, 65, 90, 48];
+    eq.innerHTML = hs.map(function (h, i) { return '<i style="--h:' + h + 'px;--d:-' + (i * .13).toFixed(2) + 's"></i>'; }).join('');
+    function setVol() { var v = +$('#vol').value; if (master) master.gain.value = vol01(); if (audioEl) audioEl.volume = v / 100; $('#volN').textContent = v; $('#db').textContent = Math.round(45 + v * .5) + ' dB'; eq.style.setProperty('--lvl', (.25 + v / 100 * .75).toFixed(2)); }
+    $('#vol').addEventListener('input', setVol); setVol();
+    document.querySelectorAll('[data-sw]').forEach(function (b) { b.addEventListener('click', function () { b.setAttribute('aria-checked', b.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); }); });
+
+    // ---------- Pages ----------
+    var bag = 0;
+    function toast(m) { var t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function () { t.classList.remove('on'); }, 2200); }
+    $('#bag').addEventListener('click', function () { toast(bag ? 'Your bag has ' + bag + ' item' + (bag > 1 ? 's' : '') + '. Checkout is a demo.' : 'Your bag is empty.'); });
+    var CTA = '<section class="closing"><div class="wrap"><h2>Go on. <em>Turn it up.</em></h2><p>Try any Vibeo at home for 30 days. Love it or send it back.</p><a class="btn" href="#contact">Ask us anything</a></div></section>';
+    function pgProd(k) {
+      var p = P[k], cur = p.c;
+      var others = PK.filter(function (x) { return x !== k; }).slice(0, 3);
+      return { title: p.n, html: '<section><div class="wrap" style="padding-block:3rem 5rem"><div class="crumbs"><a href="#">Home</a> / <a href="#shop">Speakers</a> / ' + p.n + '</div><div class="pdp"><div class="stage" id="stage">' + spk(p.kind, COLORS[cur][1]) + photo(k, p.n) + '</div><div><span class="eyebrow">' + p.tag + '</span><h1 style="margin-top:.8rem">' + p.n + '</h1><div class="pr">$' + p.price + '</div><p class="lead">' + p.lead + '</p>' +
+        '<div class="swatches" role="group" aria-label="Color"><span id="cn">' + COLORS[cur][0] + '</span>' + COLORS.map(function (c, i) { return '<button type="button" aria-label="' + c[0] + '" aria-pressed="' + (i === cur) + '" data-c="' + i + '" style="background:' + c[1] + '"></button>'; }).join('') + '</div>' +
+        '<div class="pspec"><div><b>' + p.w + '</b><span>Power</span></div><div><b>' + p.bat + '</b><span>Battery</span></div><div><b>' + p.wt + '</b><span>Weight</span></div><div><b>' + p.ip + '</b><span>Rating</span></div></div>' +
+        '<ul class="ticks">' + p.feat.map(function (f) { return '<li>' + f + '</li>'; }).join('') + '</ul>' + (PAY[k] ? '<a class="btn" id="buy" href="' + PAY[k] + '" target="_blank" rel="noopener">Buy now &middot; $' + p.price + '</a>' : '<button class="btn" id="add" type="button">Add to bag &middot; $' + p.price + '</button>') + '<p style="margin-top:1rem;color:var(--muted);font-size:.92rem">Free delivery. 30 day home trial. 5 year warranty.</p></div></div></div></section>' +
+        '<section style="background:var(--cream-2)"><div class="wrap"><h2 class="big" style="margin-bottom:2rem">You might also like</h2><div class="prods" style="grid-template-columns:repeat(3,1fr)" id="more">' + others.map(prodCard).join('') + '</div></div></section>' + CTA,
+        after: function () {
+          document.querySelector('.swatches').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; cur = +b.getAttribute('data-c'); document.querySelectorAll('.swatches button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); $('#cn').textContent = COLORS[cur][0]; $('#stage').innerHTML = spk(p.kind, COLORS[cur][1]); });
+          if ($('#add')) $('#add').addEventListener('click', function () { bag++; $('#bagN').textContent = bag; toast(p.n + ' (' + COLORS[cur][0] + ') added to your bag'); });
+        } };
+    }
+    function pgBlog(k) {
+      var b = BLOG[k], others = BK.filter(function (x) { return x !== k; });
+      return { title: b.t, html: '<section class="pg-hero"><div class="wrap"><div class="crumbs"><a href="#">Home</a> / Journal</div><span class="eyebrow">' + b.tag + ' &middot; ' + b.min + ' min read</span><h1>' + b.t + '</h1></div></section><article class="prose">' + b.body.map(function (x) { return typeof x === 'string' ? '<p>' + x + '</p>' : '<h2>' + x[1] + '</h2>'; }).join('') + '<p><a class="link" href="#shop">Shop speakers</a></p></article>' +
+        '<section style="background:var(--cream-2)"><div class="wrap"><h2 class="big" style="margin-bottom:2rem">More from the journal</h2><div class="posts" style="grid-template-columns:repeat(2,1fr)">' + others.map(function (o) { var c = BLOG[o]; return '<a class="post" href="#b-' + o + '"><div class="art" style="background:' + c.bg + '55">' + c.e + '</div><div class="t"><small>' + c.tag + ' &middot; ' + c.min + ' min read</small><h3>' + c.t + '</h3></div></a>'; }).join('') + '</div></div></section>' + CTA };
+    }
+
+    // ---------- Router ----------
+    var HOME = ['features', 'how', 'shop', 'faq', 'contact'], home = $('#home'), page = $('#page'), NAME = 'Vibeo';
+    function route() {
+      var h = decodeURIComponent((location.hash || '').slice(1)), pg = null, m;
+      if ((m = h.match(/^p-(.+)$/)) && P[m[1]]) pg = pgProd(m[1]); else if ((m = h.match(/^b-(.+)$/)) && BLOG[m[1]]) pg = pgBlog(m[1]);
+      if (pg) { page.innerHTML = pg.html; page.hidden = false; home.hidden = true; document.title = pg.title + ' | ' + NAME; window.scrollTo(0, 0); var h1 = page.querySelector('h1'); if (h1) { h1.tabIndex = -1; h1.focus({ preventScroll: true }); } if (pg.after) pg.after(); }
+      else { var was = !page.hidden; page.hidden = true; page.innerHTML = ''; home.hidden = false; document.title = NAME + ': loud speakers'; var el = HOME.indexOf(h) > -1 ? document.getElementById(h) : null; if (el) el.scrollIntoView({ behavior: was || reduce ? 'auto' : 'smooth' }); else if (was || !h) window.scrollTo(0, 0); }
+    }
+    window.addEventListener('hashchange', route);
+
+    // ---------- Form + nav ----------
+    var form = $('#form'), send = $('#send'), err = $('#err');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { err.hidden = false; form.reportValidity(); return; }
+      err.hidden = true; send.disabled = true; send.textContent = 'Sending...';
+      var data = new FormData(form);
+      var go = FORM_ENDPOINT ? fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } }).then(function (r) { if (!r.ok) throw 0; }) : Promise.resolve();
+      go.then(function () { $('#who').textContent = (data.get('name') || '').toString().trim().split(/\s+/)[0] || 'friend'; $('#addr').textContent = data.get('email'); form.hidden = true; var d = $('#done'); d.hidden = false; d.focus({ preventScroll: true }); })
+        .catch(function () { err.textContent = 'Something went wrong. Please try again.'; err.hidden = false; send.disabled = false; send.textContent = 'Send message'; });
+    });
+    $('#burger').addEventListener('click', function () { var o = $('#nav').classList.toggle('open'); this.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+    document.addEventListener('click', function (e) { if (e.target.closest('a[href]') && $('#nav').classList.contains('open')) { $('#nav').classList.remove('open'); $('#burger').setAttribute('aria-expanded', 'false'); } });
+    route();
+
+    var items = document.querySelectorAll('#home [data-reveal]');
+    if ('IntersectionObserver' in window && !reduce) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .1 });
+      items.forEach(function (el) { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); io.observe(el); } });
+    }
+  })();
+</script>
+
+</body>
+</html>
